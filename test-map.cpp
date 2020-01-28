@@ -3,7 +3,7 @@
 #include "string.h"
 
 void FAIL() { exit(1); }
-void OK(const char* m) { printf("test %d passed\n", m); }
+void OK(const char* m) { printf("test %s passed\n", m); }
 void t_true(bool p) { if (!p) FAIL(); }
 void t_false(bool p) { if (p) FAIL(); }
 String* cast_string(Object *object) {
