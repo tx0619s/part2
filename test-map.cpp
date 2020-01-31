@@ -60,7 +60,6 @@ void string_advance_test() {
   String *u = s->concat(t);
   t_true(s->hash() == u->hash());
   t_false(s->hash() == t->hash());
-  t_true(test);
   OK("string_advance_test");
 }
 
@@ -68,7 +67,6 @@ void test_constructor() {
   Hashmap *map = new Hashmap();
   t_true(map->size() == 0);
   t_true(map->hash() != 0);
-  t_true(map->hash_code != 0);
   Hashmap *map2 = new Hashmap();
   t_true(map->equals(map2));
   for (size_t i = 0; i < map->capacity_; i++) {
