@@ -69,10 +69,6 @@ void test_constructor() {
   t_true(map->hash() != 0);
   Hashmap *map2 = new Hashmap();
   t_true(map->equals(map2));
-  for (size_t i = 0; i < map->capacity_; i++) {
-    // test for method initialize(data)
-    t_true(map->data[i] == nullptr);
-  }
   t_true(map->hash() == map2->hash());
   map->put(a, av);
   map->put(b, bv);
@@ -106,9 +102,6 @@ void test_advance_method() {
   t_true(map->size() == 5);
   map->put(a, ov);
   t_true(map->size() == 5);
-  for (size_t i = 0; i < map->capacity_; i++) {
-    t_true((map->data[i] == nullptr) || (map->get(o)->equals(ov)));
-  }
   Object** keys = map->key_array();
   t_true(list_contains(keys, a, map->size_));
   t_true(list_contains(keys, b, map->size_));
