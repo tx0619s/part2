@@ -13,6 +13,16 @@ void t_false(bool p) {
     FAIL();
 }
 String *cast_string(Object *object) { return dynamic_cast<String *>(object); }
+bool list_contains(Object** list, Object *object, size_t size) {
+  for (size_t i = 0; i < size; i++) {
+    if (list[i]) {
+      if (list[i]->equals(object)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 
 String *a = new String("key_1");
 String *b = new String("key_2");
@@ -25,8 +35,42 @@ String *dv = new String("val_4");
 Object *o = new Object();
 Object *ov = new Object();
 
+void string_test() {
+  String *s = new String("Hello");
+  String *t = new String("World");
+  String *u = s->concat(t);
+  t_true(s->equals(s));
+  t_false(s->equals(t));
+  t_false(s->equals(u));
+  OK("string_test");
+}
+
+void object_test() {
+  Object *o1 = new Object();
+  Object *o2 = new Object();
+  t_false(o1->equals(o2));
+  t_true(o1->equals(o1));
+  t_true(o2->equals(o2));
+  t_false(o1->hash_code == o2->hash_code);
+  OK("Object_test");
+}
+
+void string_advance_test() {
+  String *s = new String("Hello");
+  String *t = new String("World");
+  String *u = s->concat(t);
+  t_true(s->hash() == u->hash());
+  t_false(s->hash() == t->hash());
+  size_t test = !strcmp(s->getValue(), "HellowWorld");
+  t_true(test);
+  OK("string_advance_test");
+}
+
 void test_constructor() {
   Hashmap *map = new Hashmap();
+  t_true(map->size() == 0);
+  t_true(map->hash() != 0);
+  t_true(map->hash_code != 0);
   Hashmap *map2 = new Hashmap();
   t_true(map->equals(map2));
   for (size_t i = 0; i < map->capacity_; i++) {
@@ -69,10 +113,19 @@ void test_advance_method() {
   for (size_t i = 0; i < map->capacity_; i++) {
     t_true((map->data[i] == nullptr) || (map->get(o)->equals(ov)));
   }
+  Object** keys = map->key_array();
+  t_true(list_contains(keys, a, map->size_));
+  t_true(list_contains(keys, b, map->size_));
+  t_true(list_contains(keys, c, map->size_));
+  t_true(list_contains(keys, d, map->size_));
+  t_true(list_contains(keys, o, map->size_));
   OK("map_advance_method");
 }
 
 int main(void) {
+  object_test();
+  string_test();
+  string_advance_test();
   test_constructor();
   test_basic_method();
   test_advance_method();
