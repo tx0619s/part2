@@ -58,7 +58,7 @@ void string_advance_test() {
   String *s = new String("Hello");
   String *t = new String("World");
   String *u = s->concat(t);
-  t_true(s->hash() == u->hash());
+  t_true(s->hash() != u->hash());
   t_false(s->hash() == t->hash());
   OK("string_advance_test");
 }
