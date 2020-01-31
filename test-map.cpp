@@ -51,7 +51,6 @@ void object_test() {
   t_false(o1->equals(o2));
   t_true(o1->equals(o1));
   t_true(o2->equals(o2));
-  t_false(o1->hash_code == o2->hash_code);
   OK("Object_test");
 }
 
@@ -61,7 +60,6 @@ void string_advance_test() {
   String *u = s->concat(t);
   t_true(s->hash() == u->hash());
   t_false(s->hash() == t->hash());
-  size_t test = !strcmp(s->getValue(), "HellowWorld");
   t_true(test);
   OK("string_advance_test");
 }
