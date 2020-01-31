@@ -27,9 +27,6 @@ Object *ov = new Object();
 
 void test_constructor() {
   Hashmap *map = new Hashmap();
-  t_true(map->size() == 0);
-  t_true(map->hash() != 0);
-  t_true(map->hash_code != 0);
   Hashmap *map2 = new Hashmap();
   t_true(map->equals(map2));
   for (size_t i = 0; i < map->capacity_; i++) {
