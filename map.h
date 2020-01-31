@@ -46,7 +46,11 @@ public:
 
   // destructor
   ~Hashmap() { delete[] data; }
-
+  
+  // hash and return unique hashcode. two hashmaps with 
+  // same hashmap_pairs should have the same hashcode.
+  size_t hash();
+  
   // Double the capacity of hashmap when needed
   void expand();
 
